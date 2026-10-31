@@ -8,17 +8,15 @@ import TechnicalSkills from './components/TechnicalSkills'
 
 function App() {
   return (
-    <div className="min-h-screen bg-black text-white font-sans selection:bg-[#ff2a2a] selection:text-white flex flex-col justify-between">
+    <>
       <Navbar />
-      <main className="flex-grow">
-        <Hero />
-        <About />
-        <TechnicalSkills />
-        <SoftSkills />
-        <Projects />
-      </main>
+      <Hero />
+      <About />
+      <TechnicalSkills />
+      <Projects />
+      <SoftSkills />
       <Footer />
-    </div>
+    </>
   )
 }
 
