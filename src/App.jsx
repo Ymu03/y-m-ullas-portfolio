@@ -2,6 +2,7 @@ import About from './components/About'
 import Footer from './components/Footer'
 import Hero from './components/Hero'
 import Navbar from './components/Navbar'
+import TechnicalSkills from './components/TechnicalSkills'
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <main className="flex-grow">
         <Hero />
         <About />
+        <TechnicalSkills />
       </main>
       <Footer />
     </div>
