@@ -1,116 +1,127 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { personalInfo } from '../data/portfolioData'
 
 /**
  * Navbar component
- * Sticky top navigation bar with smooth anchor links and mobile drawer.
+ * Responsive navigation bar with scroll state, animated links, and mobile drawer.
  */
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
 
-  const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Process', href: '#process' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
-  ]
+  const navLinks = ['Home', 'About', 'Skills', 'Projects', 'Contact']
 
-  const closeMenu = () => setIsOpen(false)
+  const hireMeMailto = `mailto:${personalInfo.emails.primary}?subject=Hiring Inquiry – Portfolio&body=Hello ${personalInfo.name},%0D%0A%0D%0AI came across your portfolio and would like to discuss an opportunity with you.%0D%0A%0D%0ALooking forward to hearing from you.%0D%0ABest Regards,`
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-neutral-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Brand Logo */}
-          <a
-            href="#home"
-            className="text-xl sm:text-2xl font-bold tracking-tight text-white hover:text-[#ff2a2a] transition-colors"
-          >
-            {personalInfo.brandName}
-            <span className="text-[#ff2a2a]">.</span>
-          </a>
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        isOpen
+          ? 'bg-[#ff2a2a] py-4'
+          : `bg-transparent ${isScrolled ? 'py-4 backdrop-blur-md bg-black/40' : 'py-6'}`
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+        {/* Left: Brand Logo */}
+        <a href="#" className="text-white text-2xl font-black tracking-tight">
+          {personalInfo.brandName}
+          <span className={isOpen ? 'text-white' : 'text-[#ff2a2a]'}>.</span>
+        </a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-sm font-medium text-neutral-300 hover:text-[#ff2a2a] transition-colors"
-              >
-                {link.name}
-              </a>
-            ))}
-            <a
-              href={personalInfo.resumeUrl}
-              download
-              className="px-4 py-2 text-sm font-semibold text-white bg-[#ff2a2a] hover:bg-[#e02020] rounded-full transition-all shadow-md shadow-[#ff2a2a]/20"
-            >
-              Resume
-            </a>
-          </nav>
-
-          {/* Mobile Menu Button */}
-          <div className="flex md:hidden">
-            <button
-              type="button"
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-md text-neutral-400 hover:text-white hover:bg-neutral-800 focus:outline-none"
-              aria-label="Toggle navigation menu"
-            >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {isOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Dropdown Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-[#0a0a0a] border-b border-neutral-800 px-4 pt-2 pb-6 space-y-3">
+        {/* Centre: Desktop Links */}
+        <div className="hidden md:flex space-x-8">
           {navLinks.map((link) => (
             <a
-              key={link.name}
-              href={link.href}
-              onClick={closeMenu}
-              className="block px-3 py-2 text-base font-medium text-neutral-300 hover:text-[#ff2a2a] hover:bg-neutral-900 rounded-md transition-colors"
+              key={link}
+              href={`#${link.toLowerCase()}`}
+              className="relative group text-white/80 hover:text-white font-medium transition-colors"
             >
-              {link.name}
+              {link}
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-red-500 transition-all duration-300 group-hover:w-full" />
+            </a>
+          ))}
+        </div>
+
+        {/* Right: Desktop Hire Me Button */}
+        <div className="hidden md:block">
+          <a
+            href={hireMeMailto}
+            className="px-6 py-2.5 rounded-full bg-white/10 border border-white/20 text-white font-semibold backdrop-blur-md hover:bg-white/20 hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-all duration-300"
+          >
+            Hire Me
+          </a>
+        </div>
+
+        {/* Mobile: Hamburger Button */}
+        <button
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden text-white focus:outline-none p-1"
+          aria-label="Toggle navigation menu"
+        >
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            {isOpen ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            )}
+          </svg>
+        </button>
+      </div>
+
+      {/* Mobile Dropdown Panel */}
+      <div
+        className={`absolute top-full left-0 w-full bg-[#ff2a2a] shadow-2xl overflow-hidden transition-all duration-300 md:hidden ${
+          isOpen
+            ? 'max-h-96 opacity-100 py-4 px-6'
+            : 'max-h-0 opacity-0 py-0 px-6 pointer-events-none'
+        }`}
+      >
+        <div className="flex flex-col space-y-3">
+          {navLinks.map((link) => (
+            <a
+              key={link}
+              href={`#${link.toLowerCase()}`}
+              onClick={() => setIsOpen(false)}
+              className="text-white font-bold text-lg border-b border-white/20 pb-2 hover:text-black transition-colors"
+            >
+              {link}
             </a>
           ))}
           <a
-            href={personalInfo.resumeUrl}
-            download
-            onClick={closeMenu}
-            className="block w-full text-center mt-3 px-4 py-2 text-sm font-semibold text-white bg-[#ff2a2a] hover:bg-[#e02020] rounded-full transition-all shadow-md shadow-[#ff2a2a]/20"
+            href={hireMeMailto}
+            onClick={() => setIsOpen(false)}
+            className="w-full text-center py-2.5 rounded-full bg-white text-[#ff2a2a] font-bold shadow-md hover:bg-neutral-100 transition-colors mt-2"
           >
-            Download Resume
+            Hire Me
           </a>
         </div>
-      )}
-    </header>
+      </div>
+    </nav>
   )
 }
 
