@@ -103,25 +103,25 @@ function Services() {
   const cardConfigs = [
     {
       className:
-        'md:top-[10px] md:right-[5%] lg:right-[10%] rotate-2 md:rotate-6',
+        'md:absolute md:top-[40px] md:right-[2%] lg:right-[6%] rotate-2 md:rotate-6',
       aosType: 'fade-left',
       aosDelay: 100,
     },
     {
       className:
-        'md:top-[450px] md:left-[5%] lg:left-[10%] -rotate-2 md:-rotate-6',
+        'md:absolute md:top-[420px] md:left-[2%] lg:left-[6%] -rotate-2 md:-rotate-6',
       aosType: 'fade-right',
       aosDelay: 200,
     },
     {
       className:
-        'md:top-[700px] md:right-[5%] lg:right-[15%] rotate-1 md:rotate-3',
+        'md:absolute md:top-[740px] md:right-[2%] lg:right-[8%] rotate-1 md:rotate-3',
       aosType: 'fade-left',
       aosDelay: 300,
     },
     {
       className:
-        'md:top-[1050px] md:left-[15%] lg:left-[25%] -rotate-1 md:-rotate-3',
+        'md:absolute md:top-[1040px] md:left-[8%] lg:left-[16%] -rotate-1 md:-rotate-3',
       aosType: 'fade-right',
       aosDelay: 400,
     },
@@ -140,15 +140,15 @@ function Services() {
         {/* Header Block */}
         <div
           data-aos="fade-up"
-          className="md:absolute top-10 left-0 md:w-[450px] z-20 mb-12 md:mb-0"
+          className="md:absolute top-8 left-0 md:max-w-[360px] lg:max-w-[460px] z-20 mb-12 md:mb-0"
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-red-100 border border-red-200 text-[#ff2a2a] text-xs font-mono uppercase tracking-widest mb-4">
             {skillsContent.badge}
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-black leading-[1.1] mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-black leading-[1.1] mb-4">
             {skillsContent.heading}
             <svg
-              className="w-8 h-8 inline-block ml-3 stroke-black fill-none stroke-[2] -rotate-12 translate-y-1"
+              className="w-7 h-7 md:w-8 md:h-8 inline-block ml-3 stroke-black fill-none stroke-[2] -rotate-12 translate-y-1"
               viewBox="0 0 20 20"
             >
               <path d="M4 4 Q 10 10 15 15 M 15 15 L 10 15 M 15 15 L 15 10" />
