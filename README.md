@@ -2,7 +2,7 @@
 
 Personal developer portfolio of Y M Ullas, Java Full Stack Developer based in Ballari, India.
 
-**Live site:** https://YOUR-SITE-URL/
+**Live site:** https://y-m-ullas-portfolio.vercel.app/
 
 ---
 
